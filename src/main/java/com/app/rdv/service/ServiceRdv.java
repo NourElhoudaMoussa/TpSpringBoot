@@ -4,10 +4,8 @@ import com.app.rdv.entities.Medecin;
 import com.app.rdv.entities.Patient;
 import com.app.rdv.entities.Rdv;
 import com.app.rdv.repository.RdvRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 //@AllArgsConstructor
@@ -17,7 +15,13 @@ public class ServiceRdv implements IServiceRdv{
     private final RdvRepository rdvRepository;
     @Override
     public Rdv createRdv(Rdv rdv) {
-        return rdvRepository.save(rdv);
+        Rdv existingRdvMedecin = rdvRepository.findRdvByMedecinAndDateRdv(rdv.getMedecin(),rdv.getDateRdv());
+        Rdv existingRdvPatient = rdvRepository.findRdvByPatientAndDateRdv(rdv.getPatient(),rdv.getDateRdv());
+        if (existingRdvMedecin==null && existingRdvPatient==null){
+            return rdvRepository.save(rdv);
+        }else {
+            return null;
+        }
     }
     @Override
     public List<Rdv> readAllRdv() {
@@ -34,8 +38,8 @@ public class ServiceRdv implements IServiceRdv{
     }
 
     @Override
-    public List<Rdv> GetAllByDateRdv(LocalDateTime dateRdv) {
-        return rdvRepository.findAllByDateRdv(dateRdv);
+    public List<Rdv> GetAllByDateRdv() {
+        return rdvRepository.findAllByOrderByDateRdvAsc();
     }
 
 

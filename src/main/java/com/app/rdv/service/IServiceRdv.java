@@ -13,5 +13,5 @@ public interface IServiceRdv {
     List<Rdv> readAllRdv();
     Rdv GetRdvByMedecinAndDateRdv(Medecin medecin, LocalDateTime dateRdv);
     Rdv GetRdvByPatientAndDateRdv(Patient patient, LocalDateTime dateRdv);
-    List<Rdv> GetAllByDateRdv(LocalDateTime dateRdv);
+    List<Rdv> GetAllByDateRdv();
 }
