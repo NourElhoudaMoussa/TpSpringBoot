@@ -13,6 +13,7 @@ public class ServiceMedecin implements IServiceMedecin{
     private final MedecinRepository medecinRepository;
     @Override
     public Medecin createMedecin(Medecin medecin) {
+
         return medecinRepository.save(medecin);
     }
 
